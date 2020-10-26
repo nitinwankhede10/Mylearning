@@ -81,7 +81,6 @@ fi
 } 
 }
 
-)
 
 sh "echo deploy stage" 
 withAnt(installation: antInstallName){
