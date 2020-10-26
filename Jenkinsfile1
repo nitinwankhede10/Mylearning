@@ -1,40 +1,107 @@
-#!/usr/bin/env groovy
 pipeline {
-  agent any
+/
+agent {
+docker {
 
-  stages {
-    stage("Build") {
-      steps {
-        sh 'mvn -v'
-      }
-    }
-
-    stage("Testing") {
-      parallel {
-        stage("Unit Tests") {
-          agent { docker 'openjdk:7-jdk-alpine' }
-          steps {
-            sh 'java -version'
-          }
-        }
-        stage("Functional Tests") {
-          agent { docker 'openjdk:8-jdk-alpine' }
-          steps {
-            sh 'java -version'
-          }
-        }
-        stage("Integration Tests") {
-          steps {
-            sh 'java -version'
-          }
-        }
-      }
-    }
-
-    stage("Deploy") {
-      steps {
-        echo "Deploy!"
-      }
-    }
-  }
 }
+}
+options {
+timestamps() // Show log timestamps
+buildDiscarder(logRotator(numToKeepStr: '30')) // Retain the last 30 builds
+}
+parameters{
+string (name: 'SF_API_VERSION', defaultValue: '44') // Will download SF API Jar file based on this param
+string (name: 'SALESFORCE_TESTCLASSES', defaultValue: '') // Optionally allows listed test classes to be exectued
+string (name: 'SALESFORCE_TESTLEVEL', defaultValue: 'NoTestRun') // Allows test level to be specified
+
+string (name: 'SALESFORCE_REPO_BRANCH', defaultValue: '*/DevOpsPilotPipeline') // SF Branch
+credentials (name: 'CREDENTIAL_ID', defaultValue: 'SalesforceDevOps2Env', credentialType: "Username with password", required: true) // SF creds
+string (name: 'ARTIFACTORY_ARTIFACT_NAME', defaultValue: 'salesforce') // Name of file in Artifactory
+}
+environment{
+def SF_ACCESS = credentials("${CREDENTIAL_ID}") // Credentials are stored in Jenkins credential manager
+def ARTIFACTORY_ACCESS = credentials("Artifactory") // Stored in Jenkins credential manager
+def SALESFORCE_USERNAME = "${env.SF_ACCESS_USR}" // populated by credentials()
+def SALESFORCE_PASSWORD = "${env.SF_ACCESS_PSW}" // populated by credentials()
+def ARTIFACTORY_USERNAME = "${env.ARTIFACTORY_USR}" 
+def ARTIFACTORY_ PASSWORD = "${env.ARTIFACTORY_PSW}"
+def SALESFORCE_CARTRIDGE_URL = ""
+def gitHubCredentialsId = "GIT" // Stored in Jenkins credential manager
+def antInstallName = "Ant (1.10.1, Latest)" // Tool name for withAnt
+def mvnInstallName = "Maven (3.5.2, Latest)" // Tool name for tools {maven} 
+def ARTIFACTORY_REPO_ID = "salesforce" // Fixed repo name
+def ARTIFACTORY_URL = "" // Fixed repo URL
+def PACKAGE_TO_VALIDATE = 'Main_Package' // Variable used by build.xml, doesn't need to change
+}
+tools {
+maven mvnInstallName
+}
+stages { 
+stage('PreDeploy Validation') { 
+steps {
+script {
+// Update build description
+currentBuild.description = "Deploy ${params.SALESFORCE_REPO_URL} to ${params.SALESFORCE_URL}"
+}
+// Checkout both the repository with the salesforce code and the DevOps tools repo with SF build.xml and scripts
+checkout([$class: 'GitSCM', branches: [[name: SALESFORCE_REPO_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: gitHubCredentialsId, url: SALESFORCE_REPO_URL]]])
+dir('Tools') {
+checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: gitHubCredentialsId, url: SALESFORCE_CARTRIDGE_URL]]])
+} 
+withAnt(installation: antInstallName) {
+ansiColor('xterm') {
+// This script sets up the workspace, does a find replace to set the API version, downloads any missing API jars,
+// validates the version.txt file is correct (makes one if it is missing), creates a deployable package based on
+// updates in git since the version.txt hash, and performs the predeploy validation.
+// This sends the package to SF and runs any specified tests to ensrue the deployment is possible
+sh '''
+cp -r ${WORKSPACE}/Tools/ADOA/* ${WORKSPACE}/.
+sed -i "s/###SF_API_VERSION###/${SF_API_VERSION}/g" ${WORKSPACE}/Deploy/*.xml
+cd "${WORKSPACE}/Deploy"
+if test ! -f "${WORKSPACE}/.ant/lib/ant-salesforce.jar"
+then
+ant -file "download_jars.xml" download-jars
+fi
+
+if test ! -f "${WORKSPACE}/version.txt"
+then
+echo "Did not find version.txt, assuming version"
+git rev-list --max-parents=0 HEAD > "${WORKSPACE}/version.txt"
+else
+echo "Found version.txt"
+cat ${WORKSPACE}/version.txt
+fi
+if [ $SALESFORCE_TESTLEVEL = "RunSpecifiedTests" ]
+then
+ant -file "$build.xml" startValidationProcessWithSpecificTestClasses
+else
+ant -file "build.xml" startFullValidationProcess
+fi 
+''' 
+} 
+} 
+}
+
+)
+
+sh "echo deploy stage" 
+withAnt(installation: antInstallName){
+ansiColor('xterm') {
+// Deploy a package to SF, which has already passed predeploy validation
+sh '''
+cd "${WORKSPACE}/Deploy"
+ant -file "build.xml" deployPrebuiltPkg
+''' 
+} 
+}
+}
+}
+} 
+post {
+success {
+// Ensure everything is cleaned up on success, on failure leave things around for debugging
+cleanWs()
+}
+} 
+}
+
