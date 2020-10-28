@@ -19,17 +19,17 @@ string (name: 'ARTIFACTORY_ARTIFACT_NAME', defaultValue: 'salesforce') // Name o
 }
 environment{
 def SF_ACCESS = credentials("${CREDENTIAL_ID}") // Credentials are stored in Jenkins credential manager
-def ARTIFACTORY_ACCESS = credentials("Artifactory") // Stored in Jenkins credential manager
+//def ARTIFACTORY_ACCESS = credentials("Artifactory") // Stored in Jenkins credential manager
 def SALESFORCE_USERNAME = "${env.SF_ACCESS_USR}" // populated by credentials()
 def SALESFORCE_PASSWORD = "${env.SF_ACCESS_PSW}" // populated by credentials()
 //def ARTIFACTORY_USERNAME = "${env.ARTIFACTORY_USR}" 
 //def ARTIFACTORY_ PASSWORD = "${env.ARTIFACTORY_PSW}"
-def SALESFORCE_CARTRIDGE_URL = ""
+//def SALESFORCE_CARTRIDGE_URL = ""
 def gitHubCredentialsId = "GIT" // Stored in Jenkins credential manager
 def antInstallName = "Ant (1.10.1, Latest)" // Tool name for withAnt
 def mvnInstallName = "Maven (3.5.2, Latest)" // Tool name for tools {maven} 
-def ARTIFACTORY_REPO_ID = "salesforce" // Fixed repo name
-def ARTIFACTORY_URL = "" // Fixed repo URL
+//def ARTIFACTORY_REPO_ID = "salesforce" // Fixed repo name
+//def ARTIFACTORY_URL = "" // Fixed repo URL
 def PACKAGE_TO_VALIDATE = 'Main_Package' // Variable used by build.xml, doesn't need to change
 }
 tools {
