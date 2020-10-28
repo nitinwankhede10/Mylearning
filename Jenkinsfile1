@@ -79,19 +79,9 @@ fi
 ''' 
 } 
 } 
-}
 
 
-sh "echo deploy stage" 
-withAnt(installation: antInstallName){
-ansiColor('xterm') {
-// Deploy a package to SF, which has already passed predeploy validation
-sh '''
-cd "${WORKSPACE}/Deploy"
-ant -file "build.xml" deployPrebuiltPkg
-''' 
-} 
-}
+
 }
 }
 } 
