@@ -10,7 +10,7 @@ node ('maven-jdk-8-2048') {
 	}
 	stage ('FMI_Backup - Build') {
  			// Ant build step
-	withEnv(["PATH+ANT=${tool 'FMI_Backup'}/bin"]) { 
+	withEnv(["PATH+ANT=${tool 'FMI'}/bin"]) { 
  			if(isUnix()) {
  				sh "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} FMI_Backup " 
 			} else { 
