@@ -5,16 +5,16 @@ timestamps {
 node ('maven-jdk-8-2048') { 
 	
 
-	stage ('FMI - Checkout') {
+	stage ('FMI_Backup - Checkout') {
  	 checkout([$class: 'GitSCM', branches: [[name: '*/test']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '208618fe-9b64-4b35-9b29-9a19f6ff369f', url: 'https://github.com/nitinwankhede10/Mylearning.git']]]) 
 	}
-	stage ('FMI - Build') {
+	stage ('FMI_Backup - Build') {
  			// Ant build step
-	withEnv(["PATH+ANT=${tool 'FMI'}/bin"]) { 
+	withEnv(["PATH+ANT=${tool 'FMI_Backup'}/bin"]) { 
  			if(isUnix()) {
- 				sh "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} predeploy " 
+ 				sh "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} FMI_Backup " 
 			} else { 
- 				bat "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} predeploy " 
+ 				bat "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} FMI_Backup " 
 			} 
  		}
 		archiveArtifacts allowEmptyArchive: false, artifacts: '**', caseSensitive: true, defaultExcludes: true, fingerprint: false, onlyIfSuccessful: false 
