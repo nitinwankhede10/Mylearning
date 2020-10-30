@@ -4,10 +4,7 @@ timestamps {
 
 node ('maven-jdk-8-2048') { 
 	
-	    environment {
-def SALESFORCE_USERNAME = "${env.SF_ACCESS_USR}" // populated by credentials()
-//def SALESFORCE_PASSWORD = "${env.SF_ACCESS_PSW}" // populated by credentials()
-def SALESFORCE_PASSWORD = "Kalyan@123" // populated by credentials()
+
 	stage ('FMI - Checkout') {
  	 checkout([$class: 'GitSCM', branches: [[name: '*/test']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '208618fe-9b64-4b35-9b29-9a19f6ff369f', url: 'https://github.com/nitinwankhede10/Mylearning.git']]]) 
 	}
@@ -38,4 +35,4 @@ node () {
 	}
 }
 }
-}
+
