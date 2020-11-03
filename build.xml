@@ -5,7 +5,7 @@
 <property name="sf.serverurl" value="${sf.serverurl}"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="SALESFORCE_TESTLEVEL" value="${SALESFORCE_TESTLEVEL}"/> 
-<property name="sf.claasses" value="${sf.classes}"/>	
+<property name="sf.classes" value="${sf.classes}"/>	
 
 
   <property file="build.properties"/>
@@ -220,7 +220,7 @@
 <property name="sf.serverurl" value="${sf.serverurl}"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="SALESFORCE_TESTLEVEL" value="${SALESFORCE_TESTLEVEL}"/>
-<property name="sf.claasses" value="${sf.classes}"/>		
+<property name="sf.classes" value="${sf.classes}"/>		
 
 	
 <target name="predeploy">
