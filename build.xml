@@ -72,19 +72,180 @@
 		</sequential>
 	</macrodef>
 
-	<scriptdef name="runSpecifiedTests" language="javascript">
-    <attribute name="username"/>
-    <attribute name="password"/>
-    <attribute name="serverurl"/>
-    
-  </scriptdef>
-  
-  
-  <scriptdef name="runSpecifiedTestsdeploy" language="javascript">
-    <attribute name="username"/>
-    <attribute name="password"/>
-    <attribute name="serverurl"/>
-     </scriptdef>
+
+<scriptdef name="runSpecifiedTests" language="javascript"> 
+<attribute name="username"/> 
+<attribute name="password"/> 
+<attribute name="serverurl"/>
+
+<![CDATA[
+
+ 
+//*** CREATE DEPLOY TASK ****
+ 
+var deployTask = project.createTask('antlib:com.salesforce:deploy'); 
+var username = attributes.get("username");
+var password = attributes.get("password");
+var serverurl = attributes.get("serverurl");
+var source = project.getProperty("sf.deployDir"); 
+var specifiedTest = project.getProperty("SALESFORCE_TESTCLASSES");
+var testlevel = project.getProperty("testlevel");
+
+if(username!=null && password!=null && serverurl!=null && source!=null && testlevel=="RunSpecifiedTests"){​​​​​​​
+
+deployTask.setUsername(username); 
+deployTask.setPassword(password);
+deployTask.setServerURL(serverurl); 
+deployTask.setDeployRoot(source); 
+deployTask.setTestLevel('RunSpecifiedTests');
+deployTask.setMaxPoll("5000");
+deployTask.setPollWaitMillis("20000");
+deployTask.setCheckonly(true);
+
+if (specifiedTest) {​​​​​​​ 
+deployTask.setTestLevel('RunSpecifiedTests');
+var tests = specifiedTest.split(',');
+
+ 
+//*** Prepare runTest tags ****
+
+var runTest = deployTask.getClass().getClassLoader().loadClass("com.salesforce.ant.DeployTask$CodeNameElement"); 
+for (var i = 0; i < tests.length; i++) {​​​​​​​
+var rt = runTest.newInstance();
+rt.addText(tests[i]);
+
+deployTask.addRunTest(rt);
+ 
+}​​​​​​​
+ 
+}​​​​​​​
+
+ 
+//*** Execute deploy task ***
+
+ 
+deployTask.execute();
+ 
+}​​​​​​​
+
+else{​​​​​​​
+ 
+deployTask.setUsername(username); 
+deployTask.setPassword(password);
+deployTask.setServerURL(serverurl);
+deployTask.setDeployRoot("dist");
+deployTask.setTestLevel(testlevel);
+deployTask.setMaxPoll("5000");
+deployTask.setCheckonly(true);
+deployTask.setPollWaitMillis("20000");
+deployTask.execute();
+ 
+}​​​​​​​
+
+]]>
+
+ 
+</scriptdef>
+
+ 
+<scriptdef name="runSpecifiedTestsdeploy" language="javascript">
+<attribute name="username"/>
+<attribute name="password"/>
+<attribute name="serverurl"/>
+
+ 
+<![CDATA[
+
+ 
+//*** CREATE DEPLOY TASK ****
+
+ 
+var deployTask = project.createTask('antlib:com.salesforce:deploy');
+var username = attributes.get("username");
+var password = attributes.get("password");
+var serverurl = attributes.get("serverurl");
+var source = project.getProperty("sf.deployDir");
+var specifiedTest = project.getProperty("SALESFORCE_TESTCLASSES");
+var testlevel = project.getProperty("testlevel");
+
+if(username!=null && password!=null && serverurl!=null && source!=null && testlevel=="RunSpecifiedTests"){​​​​​​​
+
+ 
+deployTask.setUsername(username);
+deployTask.setPassword(password); 
+deployTask.setServerURL(serverurl);
+deployTask.setDeployRoot(source);
+deployTask.setTestLevel('RunSpecifiedTests'); 
+deployTask.setMaxPoll("5000");
+deployTask.setPollWaitMillis("20000");
+
+ 
+//*** Prepare list of test classes ***
+
+ 
+if (specifiedTest) {​​​​​​​
+deployTask.setTestLevel('RunSpecifiedTests');
+
+var tests = specifiedTest.split(',');
+
+ 
+//*** Prepare runTest tags ****
+ 
+var runTest = deployTask.getClass().getClassLoader().loadClass("com.salesforce.ant.DeployTask$CodeNameElement");
+ 
+for (var i = 0; i < tests.length; i++) {​​​​​​​
+var rt = runTest.newInstance();
+rt.addText(tests[i]);
+deployTask.addRunTest(rt);
+}​​​​​​​
+ 
+}​​​​​​​
+
+ 
+//*** Execute deploy task ***
+ 
+deployTask.execute();
+
+}​​​​​​​
+
+else{​​​​​​​
+ 
+deployTask.setUsername(username);
+deployTask.setPassword(password);
+deployTask.setServerURL(serverurl); 
+deployTask.setDeployRoot("dist");
+deployTask.setTestLevel(testlevel);
+deployTask.setMaxPoll("5000");
+deployTask.setPollWaitMillis("20000");
+deployTask.execute();
+ 
+}​​​​​​​
+ 
+]]>
+
+ 
+</scriptdef>
+
+
+<scriptdef name="runSpecifiedTests" language="javascript">
+
+<attribute name="username"/>
+<attribute name="password"/>
+<attribute name="serverurl"/>
+ 
+</scriptdef>
+ 
+<scriptdef name="runSpecifiedTestsdeploy" language="javascript"> 
+<attribute name="username"/>
+<attribute name="password"/>
+<attribute name="serverurl"/>
+
+</scriptdef>
+
+
+
+
+
 
 
 
