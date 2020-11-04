@@ -144,7 +144,8 @@ deployTask.execute();
 
 ]]>
 
-
+ 
+</scriptdef>
 
  
 <scriptdef name="runSpecifiedTestsdeploy" language="javascript">
@@ -223,6 +224,31 @@ deployTask.execute();
 ]]>
 
  
+</scriptdef>
+
+
+<scriptdef name="runSpecifiedTests" language="javascript">
+
+<attribute name="username"/>
+<attribute name="password"/>
+<attribute name="serverurl"/>
+ 
+</scriptdef>
+ 
+<scriptdef name="runSpecifiedTestsdeploy" language="javascript"> 
+<attribute name="username"/>
+<attribute name="password"/>
+<attribute name="serverurl"/>
+
+</scriptdef>
+
+
+
+
+
+
+
+
 	<target name="diffBuilderWithGitCommit">
 		<delete dir="${sf.deployDir}"/>
 		<mkdir dir="${sf.deployDir}"/>
@@ -361,20 +387,20 @@ deployTask.execute();
 <target name="predeploy">
 
 <echo>"${SALESFORCE_TESTCLASSES}"</echo>
- <antcall target="diffBuilderWithGitCommit">
+<antcall target="diffBuilderWithGitCommit">
 
       <param name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}" />
     </antcall>
 	 
 	 <runSpecifiedTests username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}"/>
 	
- </target>
+</target>
 
 
 
 <target name="deploy">
- <echo>"${SALESFORCE_TESTCLASSES}"</echo>
- <antcall target="diffBuilderWithGitCommit">
+<echo>"${SALESFORCE_TESTCLASSES}"</echo>
+<antcall target="diffBuilderWithGitCommit">
 
       <param name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}" />
     </antcall>
