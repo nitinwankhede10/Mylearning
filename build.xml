@@ -224,31 +224,6 @@ deployTask.execute();
 ]]>
 
  
-</scriptdef>
-
-
-<scriptdef name="runSpecifiedTests" language="javascript">
-
-<attribute name="username"/>
-<attribute name="password"/>
-<attribute name="serverurl"/>
- 
-</scriptdef>
- 
-<scriptdef name="runSpecifiedTestsdeploy" language="javascript"> 
-<attribute name="username"/>
-<attribute name="password"/>
-<attribute name="serverurl"/>
-
-</scriptdef>
-
-
-
-
-
-
-
-
 	<target name="diffBuilderWithGitCommit">
 		<delete dir="${sf.deployDir}"/>
 		<mkdir dir="${sf.deployDir}"/>
