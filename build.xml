@@ -1,11 +1,10 @@
 <project name="project" default="sync" xmlns:sf="antlib:com.salesforce">
 <property environment="env"/>
-<property name="sf.username" value="${sf.username}"/>
+    <property name="sf.username" value="${sf.username}"/>
 <property name="sf.password" value="${sf.password}"/>
 <property name="sf.serverurl" value="https://login.salesforce.com"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="testlevel" value="NoTestRun"/> 
-<property name="sf.classes" value="${sf.classes}"/>        
 
 
   <property file="build.properties"/>
@@ -46,7 +45,6 @@
     <attribute name="username"/>
     <attribute name="password"/>
     <attribute name="serverurl"/>
-    <attribute name="deployroot"/>
     <![CDATA[
     //*** CREATE DEPLOY TASK ****
 var deployTask = project.createTask('antlib:com.salesforce:deploy');
@@ -99,7 +97,6 @@ deployTask.execute();
     <attribute name="username"/>
     <attribute name="password"/>
     <attribute name="serverurl"/>
-    <attribute name="deployroot"/>
     <![CDATA[
     //*** CREATE DEPLOY TASK ****
 var deployTask = project.createTask('antlib:com.salesforce:deploy');
@@ -277,14 +274,13 @@ defaultValue=""/>
 <property name="sf.serverurl" value="${sf.serverurl}"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="testlevel" value="${testlevel}"/> 
-<property name="sf.classes" value="${sf.classes}"/>        
 
 <target name="predeploy">
 <echo>"${SALESFORCE_TESTCLASSES}"</echo>
 <antcall target="diffBuilderWithGitCommit">
       <param name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}" />
 </antcall>
-<runSpecifiedTests username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}"/>  
+<runSpecifiedTests username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}"/>
 </target>
 
 
@@ -299,4 +295,3 @@ defaultValue=""/>
 
 
 </project>
-
