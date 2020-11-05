@@ -292,7 +292,7 @@ defaultValue=""/>
 
       <param name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}" />
     </antcall>
-<runSpecifiedTestsdeploy username="naresh2389@gmail.com"  password="salesforce$1234XIUl9KtBgiDfAOZ6oTjZvjunR" serverurl="https://login.salesforce.com"/>
+<runSpecifiedTestsdeploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}"/>
 </target>
 
 
