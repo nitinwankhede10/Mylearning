@@ -11,9 +11,9 @@ node ('maven-jdk-8-2048') {
  			// Ant build step
 	withEnv(["PATH+ANT=${tool 'FMI'}/bin"]) { 
  			if(isUnix()) {
- 				sh "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} predeploy " 
+ 				sh "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password=${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} predeploy " 
 			} else { 
- 				bat "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} predeploy " 
+ 				bat "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password=${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} predeploy " 
 			} 
  		}
 		archiveArtifacts allowEmptyArchive: false, artifacts: '**', caseSensitive: true, defaultExcludes: true, fingerprint: false, onlyIfSuccessful: false 
@@ -26,9 +26,9 @@ node () {
 // Unable to convert a build step referring to "hudson.plugins.copyartifact.CopyArtifact". Please verify and convert manually if required.		// Ant build step
 	withEnv(["PATH+ANT=${tool 'FMI'}/bin"]) { 
  			if(isUnix()) {
- 				sh "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} deploy " 
+ 				sh "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password=${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} deploy " 
 			} else { 
- 				bat "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password= ${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} deploy " 
+ 				bat "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password=${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} deploy " 
 			} 
  		} 
 	}
