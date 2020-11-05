@@ -284,23 +284,7 @@ defaultValue=""/>
 <antcall target="diffBuilderWithGitCommit">
       <param name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}" />
 </antcall>
-<runSpecifiedTests username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployroot="src"/>  
-</target>
-
-
-<target name="validatedev">
- <echo message="Validating merged metadata from Deployment directory..." />
-
- 
-
-    <sf:deploy
-            singlePackage="true"
-            username="naresh2389@gmail.com"
-      password="salesforce$1234XIUl9KtBgiDfAOZ6oTjZvjunR"
-      serverurl="https://login.salesforce.com"
-            CHECKONLY="true"
-            deployRoot="./src"
-        />
+<runSpecifiedTests username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}"/>  
 </target>
 
 
