@@ -46,6 +46,7 @@
     <attribute name="username"/>
     <attribute name="password"/>
     <attribute name="serverurl"/>
+    <attribute name="deployroot"/>
     <![CDATA[
     //*** CREATE DEPLOY TASK ****
 var deployTask = project.createTask('antlib:com.salesforce:deploy');
@@ -98,6 +99,7 @@ deployTask.execute();
     <attribute name="username"/>
     <attribute name="password"/>
     <attribute name="serverurl"/>
+    <attribute name="deployroot"/>
     <![CDATA[
     //*** CREATE DEPLOY TASK ****
 var deployTask = project.createTask('antlib:com.salesforce:deploy');
