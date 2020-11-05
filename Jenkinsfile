@@ -19,18 +19,5 @@ node ('maven-jdk-8-2048') {
 		archiveArtifacts allowEmptyArchive: false, artifacts: '**', caseSensitive: true, defaultExcludes: true, fingerprint: false, onlyIfSuccessful: false 
 	}
 }
-node () { 
 
-	stage ('Jenkinsfile/deploy - Build') {
- 	
-// Unable to convert a build step referring to "hudson.plugins.copyartifact.CopyArtifact". Please verify and convert manually if required.		// Ant build step
-	withEnv(["PATH+ANT=${tool 'FMI'}/bin"]) { 
- 			if(isUnix()) {
- 				sh "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password=${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} deploy " 
-			} else { 
- 				bat "ant -buildfile ${WORKSPACE}/build.xml -Dsf.samplePackageXML=${WORKSPACE}/samplePackage.xml -Dsf.username=${SALESFORCE_USERNAME} -Dsf.password=${SALESFORCE_PASSWORD} -Dserverurl=${SALESFORCE_URL} deploy " 
-			} 
- 		} 
-	}
-}
 }
