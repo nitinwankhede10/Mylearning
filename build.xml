@@ -150,8 +150,8 @@ deployTask.execute();
 <delete dir="${sf.deployDir}"/>
 <mkdir dir="${sf.deployDir}"/>
 <copy file="${sf.samplePackageXML}" tofile="${sf.deployDir}/package.xml"/>
-<echo>Current GIT Commit : 3a6785ac16389a37de5b05343fe038fd31a68596</echo>
-<echo>Previous Known Successful GIT Commit : 910705a1933c155a98e5e922cbc937ce2d4ab33b</echo>
+<echo>Current GIT Commit : 0603b63b3062a96c2b5dd7ebccccfa85f560bb01</echo>
+//<echo>Previous Known Successful GIT Commit : 910705a1933c155a98e5e922cbc937ce2d4ab33b</echo>
 <gitDiff/>
 <for list="${git.diff}" param="currentDiff" delimiter="${line.separator}">
 <sequential>
