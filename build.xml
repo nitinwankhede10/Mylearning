@@ -282,7 +282,8 @@ defaultValue=""/>
 <antcall target="diffBuilderWithGitCommit">
       <param name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}" />
 </antcall>
-<runSpecifiedTests username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}"/>
+// <runSpecifiedTests username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}"/>
+<runSpecifiedTests username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployroot="src"/>  
 </target>
 
 
