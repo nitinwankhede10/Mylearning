@@ -5,6 +5,7 @@
 <property name="sf.serverurl" value="https://login.salesforce.com"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="testlevel" value="NoTestRun"/> 
+    <property name="sf.classes" value="${sf.classes}"/> 
 
 
   <property file="build.properties"/>
@@ -274,6 +275,7 @@ defaultValue=""/>
 <property name="sf.serverurl" value="${sf.serverurl}"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="testlevel" value="${testlevel}"/> 
+    <property name="sf.classes" value="${sf.classes}"/> 
 
 <target name="predeploy">
 <echo>"${SALESFORCE_TESTCLASSES}"</echo>
