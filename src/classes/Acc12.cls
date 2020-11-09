@@ -7,4 +7,4 @@ public class Acc12 {
 
 }
 
-\\test1\\
+//test1//
