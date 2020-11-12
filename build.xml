@@ -29,13 +29,15 @@
 </taskdef>
 
  
-    <macrodef name="gitDiff">
+<loadfile property="version" srcFile="version.txt"/>
+
+<macrodef name="gitDiff">
 <sequential>
 <exec executable="git" outputproperty="git.diff">
 <arg value="diff" />
-<arg value="-R" />
+<arg value="-r" />
 <arg value="--name-only" />
-<arg value="10eb83b4655a4fa5f492c44d62b7246d056ab6c4" />
+<arg value=${version}/>
 <arg value="HEAD" />
 </exec>
 <echo>${git.diff}</echo>
