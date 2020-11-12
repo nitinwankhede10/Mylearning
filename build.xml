@@ -35,7 +35,7 @@
 <sequential>
 <exec executable="git" outputproperty="git.diff">
 <arg value="diff" />
-<arg value="-r" />
+<arg value="-R" />
 <arg value="--name-only" />
 <arg value="${version}" />
 <arg value="HEAD" />
