@@ -5,7 +5,8 @@
 <property name="sf.serverurl" value="https://login.salesforce.com"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="testlevel" value="NoTestRun"/> 
-<loadfile property="version" srcFile="version.txt"/>  
+<loadfile property="version" 
+          srcFile="version.txt"/>  
 
 
   <property file="build.properties"/>
@@ -35,7 +36,7 @@
 <sequential>
 <exec executable="git" outputproperty="git.diff">
 <arg value="diff" />
-<arg value="-R" />
+<arg value="-r" />
 <arg value="--name-only" />
 <arg value="${version}" />    
 <arg value="HEAD" />
