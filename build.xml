@@ -5,7 +5,7 @@
 <property name="sf.serverurl" value="https://login.salesforce.com"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="testlevel" value="NoTestRun"/> 
-  
+<loadfile property="version" srcFile="version.txt"/>  
 
 
   <property file="build.properties"/>
@@ -29,7 +29,7 @@
 </taskdef>
 
  
-<loadfile property="version" srcFile="version.txt"/>
+
 
 <macrodef name="gitDiff">
 <sequential>
@@ -37,7 +37,7 @@
 <arg value="diff" />
 <arg value="-R" />
 <arg value="--name-only" />
-<arg value="d15987e2ed76de6891adc93d54b587bc709f7aae" />
+<arg value="${version}" />    
 <arg value="HEAD" />
 </exec>
 <echo>${git.diff}</echo>
