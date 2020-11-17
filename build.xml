@@ -5,12 +5,14 @@
 <property name="sf.serverurl" value="https://login.salesforce.com"/>    
 <property name="SALESFORCE_TESTCLASSES" value="${SALESFORCE_TESTCLASSES}"/> 
 <property name="testlevel" value="NoTestRun"/> 
-<property name="version" value="${version.txt}"/>    
+ 
 <loadfile property="version" 
           srcFile="version.txt"/>  
 
 
   <property file="build.properties"/>
+    
+  <property file="version.txt"/>  
   
 
   <!-- <property name="sf.fetchFromDuration"      value="${env.fetchFromDuration}"/> -->
