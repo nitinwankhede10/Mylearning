@@ -74,5 +74,40 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
+<profiles>
+              <profile>
+                             <id>cloudhub</id>
+                             <build>
+                             <plugins>
+                                           <plugin>
+                                           <groupId>org.mule.tools.maven</groupId>
+                                           <artifactId>mule-maven-plugin</artifactId>
+                                           <version>2.0</version>
+                                           <configuration>
+                                             <deploymentType>cloudhub</deploymentType>
+                                             <muleVersion>4.3.0</muleVersion> 
+                                             <cloudhub.user>nwankhede10</cloudhub.user>
+											 <cloudhub.pass>Kalyan@123</cloudhub.pass>
+                                             <applicationName>SFDC-Mulesoft</applicationName>
+                                             <environment>Sandbox</environment> 
+                                             <businessGroup>FMI</businessGroup>
+                                             <region>us-east-1</region>
+                                             <uri>https://anypoint.mulesoft.com</uri> 
+                                             <workerType>small</workerType>
+                                             <workers>1</workers>
+                                           </configuration>
+        <executions>
+          <execution>
+            <id>deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</profile>
+</profiles>
 </project>
