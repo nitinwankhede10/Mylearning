@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="sampdemomuleFlow" doc:id="5ed936e7-9a67-4133-a7d9-4a05885b1e76" >
+		<scheduler doc:name="Scheduler" doc:id="b2028c2c-26cc-469a-8efe-dba74039b221">
+			<scheduling-strategy>
+				<fixed-frequency frequency="30" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<ee:transform doc:name="Transform Message" doc:id="55fe1737-9c1d-4311-b8f8-4ae0bc4d4877">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+"Hello World!"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="aaf2115d-39ec-42c0-93fe-a62a78307ee9" message="#[payload]"/>
+	</flow>
+</mule>
