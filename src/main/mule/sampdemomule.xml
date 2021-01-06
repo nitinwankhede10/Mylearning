@@ -15,7 +15,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/java
 ---
-"Hello World!"]]></ee:set-payload>
+"Helloo World!"]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="aaf2115d-39ec-42c0-93fe-a62a78307ee9" message="#[payload]"/>
